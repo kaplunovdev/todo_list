@@ -1,0 +1,183 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+body {
+  font-family: "Nunito", sans-serif;
+}
+li {
+  list-style-type: none;
+  padding: 15px 0px 15px 15px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.title__main {
+  margin: 0 0 15px;
+  text-align: center;
+  font-size: 50px;
+  color: #c6c6c6;
+  padding-top: 100px;
+}
+.input__main {
+  width: 500px;
+  margin: 0 auto;
+}
+input.input_main {
+  min-height: 40px;
+  font-size: 27px;
+  padding: 10px;
+  border: none;
+  color: #534646;
+  box-shadow: 0px 0px 15px -3px rgba(34, 60, 80, 0.2);
+}
+input.input_main:focus {
+  outline: none;
+}
+input.input_main::placeholder {
+  color: rgb(197, 197, 197);
+  font-size: 25px;
+}
+.list {
+  box-shadow: 0px 13px 15px -3px rgba(34, 60, 80, 0.2);
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #534646;
+  border-bottom: 1px solid rgb(231, 228, 228);
+  font-size: 24px;
+  transition: color 0.2s;
+}
+.item button::after {
+  position: absolute;
+  content: "\274c";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.item button {
+  display: none;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  border: none;
+  font-size: 20px;
+  background: none;
+  cursor: pointer;
+  margin-right: 20px;
+  transition: scale 0.2s;
+}
+.item button:hover {
+  scale: 1.2;
+}
+.text {
+  display: flex;
+  align-self: flex-start;
+
+  padding-left: 15px;
+}
+.item__left {
+  display: flex;
+  align-items: center;
+}
+input.checkbox {
+  border: none;
+  background: none;
+  appearance: none;
+}
+.checkbox {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+}
+.checkbox::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid tomato;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+.checkbox:checked::after {
+  content: "\2713";
+  color: #608ddf;
+  position: absolute;
+  font-size: 30px;
+  width: 25px;
+  height: 25px;
+  left: 7px;
+  right: 0;
+  bottom: 0;
+  top: -8px;
+}
+.item:last-child {
+  border-bottom: none;
+}
+.item:hover {
+  background: rgb(247, 247, 247);
+}
+.item:hover.item button {
+  display: block;
+}
+.footer {
+  align-items: center;
+  font-size: 13px;
+  display: flex;
+  padding: 7px 10px;
+  justify-content: space-between;
+  flex-direction: column;
+  background: #fff;
+  border-top: 1px solid rgb(231, 228, 228);
+  box-shadow: 0px 7px 15px -3px rgba(34, 60, 80, 0.2);
+}
+.footer button {
+  background: none;
+  border-radius: 4px;
+  padding: 3px 5px;
+  border: 1px solid transparent;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+.footer button:last-child {
+  margin-right: 0;
+}
+.footer button:hover {
+  border: 1px solid rgb(189, 189, 189);
+}
+.footer button .footer__center {
+  display: flex;
+}
+.footer__center {
+  padding: 10px;
+}
+button.footer__active {
+  border: 1px solid rgb(255, 165, 165);
+}
+.complete {
+  text-decoration: line-through;
+}
+
+.App {
+  max-width: 500px;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+@media (min-width: 480px) {
+  .footer {
+    flex-direction: row;
+  }
+  .footer__center {
+    padding: 0;
+  }
+}
