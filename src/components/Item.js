@@ -1,22 +1,28 @@
 import React from 'react';
-import {Checked} from './App';
 import '../css/style.css';
+import removeItem from './List'
+
+const Item = ({ elem, elemChange }) => {
+
+  return (
+    <li className="item">
+      <div className="item__left">
+        <input className="checkbox" type="checkbox" onChange={() => elemChange(elem.id)} />
+        <span className={(elem.active === false) ? 'complete text' : 'text'}>{elem.text}</span>
+      </div>
+      <ButtonRemove idRemove={elem.id} />
+    </li>
+  )
+
+}
+export default Item;
 
 
 
-  const Item = ({ elem, check })=> {
-    if (elem.active === false) {
-    }
-    //console.log(items)
-    return (
-      <li className="item">
-        <div className="item__left">
-          <input className="checkbox" type="checkbox" onChange={() => Checked(elem.id)} />
-          <span className="text">{elem.text}</span>
-        </div>
-        <button></button>
-      </li>
-    )
-  
-  }
-  export default Item;
+
+export function ButtonRemove(props) {
+
+  return (
+    <button onClick={()=>removeItem(props.idRemove)}></button>
+  )
+}
