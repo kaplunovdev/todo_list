@@ -1,7 +1,6 @@
 import React from 'react';
 import Footer from './Footer';
 import Title from './Title';
-// import List from './List';
 import Item from './Item';
 import Input from './Input';
 import '../css/style.css';
@@ -15,7 +14,6 @@ class App extends React.Component {
             fullTasks: []
         }
 
-
         this.deleteItem = this.deleteItem.bind(this);
         this.deleteAll = this.deleteAll.bind(this);
         this.showAll = this.showAll.bind(this);
@@ -25,78 +23,91 @@ class App extends React.Component {
     addTodo = (elem) => {
 
         this.setState(state => {
-            let { items } = state;
+            const { items } = state;
+            const { fullTasks } = state;
+            const idTask = items.length !== 0 ? items.length : 0;
 
+            //const maxKey = Math.max(maxId)
             items.push({
-                id: items.length !== 0 ? items.length : 0,
+                id: idTask,
                 active: true,
                 text: elem
             });
 
-            this.state.fullTasks.push({
-                id: items.length !== 0 ? items.length : 0,
+
+            fullTasks.push({
+                id: idTask,
                 active: true,
                 text: elem
             })
 
-
             return items;
+
         })
 
 
     }
+
     completeItem = (id) => {
-        const elemDone = this.state.items.map(elem => elem.id).indexOf(id);
-        this.setState(state => {
-            let { items } = state;
-            items[elemDone].active = !items[elemDone].active;
-            return items;
+        const { items } = this.state
+        items.map(elem => {
+            if (elem.id === id) {
+                const toggle = elem.active = !elem.active;
+                this.setState(state => {
+                    const { items } = state;
+                    elem.active = toggle;
+                    return items;
+                })
+
+            }
+
+        });
+
+
+        this.setState({
+            fullTasks: items
         })
-        this.setState(state => {
-            let { fullTasks } = state;
-            fullTasks[elemDone].active = !fullTasks[elemDone].active;
-            return fullTasks;
-        })
-   
 
 
     }
 
     deleteItem(id) {
-        let newItems = this.state.items.filter(task => task.id !== id)
+        const newItems = this.state.items.filter(task => task.id !== id)
 
         this.setState({
-            items: newItems
+            items: newItems,
+            fullTasks: newItems,
+
         })
-        this.setState({
-            fullTasks: newItems
-        })
+        const { items } = this.state
+        const maxId = items.map(elem => elem.id)
+        console.log(maxId)
     }
 
     deleteAll() {
-        let { items } = this.state
-        let newItems = items.filter(task => task.active)
+        const { fullTasks } = this.state
+        const update = fullTasks.filter(task => task.active)
 
         this.setState({
-            items: newItems
+            items: update,
+            fullTasks: update
         })
-        this.setState({
-            fullTasks: newItems
-        })
+
     }
 
     deleteActive() {
-        let { items } = this.state
-        let newItems = items.filter(task => !task.active)
+        const { fullTasks } = this.state
+        const newItems = fullTasks.filter(task => !task.active)
 
         this.setState({
-            items: newItems
+            items: newItems,
+            fullTasks: newItems
         })
     }
 
     showActive() {
-        let { fullTasks } = this.state
-        let active = fullTasks.filter(task => task.active)
+        const { fullTasks } = this.state
+        const active = fullTasks.filter(task => task.active)
 
         this.setState({
             items: active,
@@ -105,25 +116,38 @@ class App extends React.Component {
     }
 
     showComplete() {
-        let { fullTasks } = this.state
-        let update = fullTasks.filter(task => !task.active)
+        const { fullTasks } = this.state
+        const update = fullTasks.filter(task => !task.active)
 
         this.setState({
             items: update
+
         })
     }
 
     showAll() {
+        const { fullTasks } = this.state
         this.setState({
-            items: this.state.fullTasks,
+            items: fullTasks
+        })
+    }
+
+    toggleClass(id) {
+        const { fullTasks } = this.state
+        fullTasks.map(item => {
+            if (item.id === id) {
+                item.active = !item.active
+            }
+            return item;
         })
     }
 
 
     render() {
         const { items } = this.state;
-        const activeItem = items.filter(item => item.active);
-        const itemComplete = items.filter(item => !item.active);
+        const { fullTasks } = this.state;
+        const activeItem = fullTasks.filter(item => item.active);
+        const itemComplete = fullTasks.filter(item => !item.active);
         return (
             <div className="App" >
                 <Title />
@@ -141,7 +165,7 @@ class App extends React.Component {
                     })}
                 </ul>
 
-                {(this.state.fullTasks.length) ?
+                {(this.state.fullTasks.length || this.state.items.length) ?
                     <Footer
                         items={items}
                         fullTasks={this.state.fullTasks}

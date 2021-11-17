@@ -10,6 +10,7 @@ const Item = ({ elem, ...props }) => {
     <li className="item">
       <div className="item__left">
         <input
+          checked={!elem.active}
           className="checkbox"
           type="checkbox"
           onChange={() => props.completeItem(elem.id)} />
