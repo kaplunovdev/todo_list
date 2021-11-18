@@ -1,8 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import stateTodo from "./stateTodo";
+import { createStore } from 'redux';
+import reducer from "./reducer";
 
-export default configureStore({
-    reducer:{
-        todo:stateTodo
-    }
-})
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+export default store;

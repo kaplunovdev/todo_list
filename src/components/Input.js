@@ -1,4 +1,8 @@
 import React from "react";
+import { Provider, useSelector, useDispatch } from 'react-redux';
+//const count = useSelector(state => state.todos.text)
+
+
 
 class Input extends React.Component {
 
@@ -10,9 +14,9 @@ class Input extends React.Component {
         };
 
 
-         this.inputEnter = this.inputEnter.bind(this)
-         this.changeInput = this.changeInput.bind(this)
-         this.addTodo = this.addTodo.bind(this)
+        this.inputEnter = this.inputEnter.bind(this)
+        this.changeInput = this.changeInput.bind(this)
+        this.addTodo = this.addTodo.bind(this)
     }
 
     changeInput = (e) => {

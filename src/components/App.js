@@ -1,11 +1,12 @@
 import React from 'react';
-
+import { useSelector } from "react-redux";
 import Footer from './Footer';
 import Title from './Title';
 import Item from './Item';
 import Input from './Input';
 import '../css/style.css';
 
+//const elem = useSelector(state => state);
 
 class App extends React.Component {
     constructor(props) {
@@ -19,10 +20,13 @@ class App extends React.Component {
         this.deleteAll = this.deleteAll.bind(this);
         this.showAll = this.showAll.bind(this);
         this.showActive = this.showActive.bind(this);
+
+        
+
     }
+   
 
     addTodo = (elem) => {
-
         this.setState(state => {
             const { items } = state;
             const { fullTasks } = state;
@@ -48,6 +52,13 @@ class App extends React.Component {
 
 
     }
+
+     todoAddStore = () => {
+        dispatch(actions.addTask({
+          title: 'taskTitle'
+        }));
+        setTaskTitle('');
+      }
 
     completeItem = (id) => {
         const { items } = this.state
@@ -149,6 +160,7 @@ class App extends React.Component {
         const { fullTasks } = this.state;
         const activeItem = fullTasks.filter(item => item.active);
         const itemComplete = fullTasks.filter(item => !item.active);
+
         return (
             <div className="App" >
                 <Title />

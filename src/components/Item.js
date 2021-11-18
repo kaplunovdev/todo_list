@@ -1,12 +1,11 @@
 import React from 'react';
-import { addTodo } from './redux/stateTodo';
 import { useSelector, useDispatch } from 'react-redux';
 import '../css/style.css';
 
 const Item = ({ elem, ...props }) => {
 
-const todo = useSelector(state=>state.todo)
-const dispatch = useDispatch();
+// const todo = useSelector(state=>state.todo)
+// const dispatch = useDispatch();
 
 
   return (
