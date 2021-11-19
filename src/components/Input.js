@@ -10,9 +10,7 @@ class Input extends React.Component {
         };
 
 
-         this.inputEnter = this.inputEnter.bind(this)
-         this.changeInput = this.changeInput.bind(this)
-         this.addTodo = this.addTodo.bind(this)
+
     }
 
     changeInput = (e) => {
