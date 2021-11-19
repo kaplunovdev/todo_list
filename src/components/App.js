@@ -1,68 +1,50 @@
 import React from 'react';
-import { useSelector } from "react-redux";
 import Footer from './Footer';
 import Title from './Title';
 import Item from './Item';
 import Input from './Input';
+import { store } from '../index';
 import '../css/style.css';
 
-//const elem = useSelector(state => state);
 
-class App extends React.Component {
+
+export class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             items: [],
-            fullTasks: []
+            itemsFull: [],
         }
 
-        this.deleteItem = this.deleteItem.bind(this);
-        this.deleteAll = this.deleteAll.bind(this);
-        this.showAll = this.showAll.bind(this);
-        this.showActive = this.showActive.bind(this);
-
-        
 
     }
-   
+
 
     addTodo = (elem) => {
-        this.setState(state => {
-            const { items } = state;
-            const { fullTasks } = state;
-            const idTask = items.length !== 0 ? items.length : 0;
 
-            //const maxKey = Math.max(maxId)
-            items.push({
-                id: idTask,
-                active: true,
-                text: elem
-            });
+        const { items } = this.state;
+        const itemsFull = [...items];
+        const arr = itemsFull.map(elem => elem.id)
+        const idTask = items.length === 0 ? 0 : Math.max.apply(null, arr) + 1;
 
-
-            fullTasks.push({
-                id: idTask,
-                active: true,
-                text: elem
-            })
-
-            return items;
-
+        itemsFull.push({
+            id: idTask,
+            active: true,
+            text: elem
         })
 
+        this.setState({
+            items: itemsFull,
+            itemsFull: itemsFull,
+        })
 
+   
     }
 
-     todoAddStore = () => {
-        dispatch(actions.addTask({
-          title: 'taskTitle'
-        }));
-        setTaskTitle('');
-      }
 
     completeItem = (id) => {
-        const { items } = this.state
-        items.map(elem => {
+        const { itemsFull } = this.state
+        itemsFull.map(elem => {
             if (elem.id === id) {
                 const toggle = elem.active = !elem.active;
                 this.setState(state => {
@@ -76,75 +58,72 @@ class App extends React.Component {
         });
 
 
-        this.setState({
-            fullTasks: items
-        })
-
-
     }
 
-    deleteItem(id) {
-        const newItems = this.state.items.filter(task => task.id !== id)
+    deleteItem = (id) => {
+        const { itemsFull } = this.state
+        const newItems = itemsFull.filter(task => task.id !== id)
 
         this.setState({
             items: newItems,
-            fullTasks: newItems,
-
+            itemsFull: newItems,
         })
-        const { items } = this.state
-        const maxId = items.map(elem => elem.id)
-        console.log(maxId)
+
+
+
+
     }
 
-    deleteAll() {
-        const { fullTasks } = this.state
-        const update = fullTasks.filter(task => task.active)
+    deleteAll = () => {
+        const { itemsFull } = this.state
+        const update = itemsFull.filter(task => task.active)
 
         this.setState({
             items: update,
-            fullTasks: update
+            itemsFull: update
         })
 
     }
 
-    deleteActive() {
-        const { fullTasks } = this.state
-        const newItems = fullTasks.filter(task => !task.active)
+    deleteActive = () => {
+        const { itemsFull } = this.state
+        const update = itemsFull.filter(task => !task.active)
 
         this.setState({
-            items: newItems,
-            fullTasks: newItems
+            items: update,
+            itemsFull: update
+
         })
     }
 
-    showActive() {
-        const { fullTasks } = this.state
-        const active = fullTasks.filter(task => task.active)
+    showActive = () => {
+        const { itemsFull } = this.state
+        const update = itemsFull.filter(task => task.active)
 
         this.setState({
-            items: active,
+            items: update,
         })
-        //return active
     }
 
-    showComplete() {
-        const { fullTasks } = this.state
-        const update = fullTasks.filter(task => !task.active)
+    showComplete = () => {
+        const { itemsFull } = this.state
+        const update = itemsFull.filter(task => !task.active)
 
         this.setState({
             items: update
-
         })
     }
 
-    showAll() {
-        const { fullTasks } = this.state
+    showAll = () => {
+        const { itemsFull } = this.state
+
         this.setState({
-            items: fullTasks
+            items: itemsFull
+
         })
     }
 
-    toggleClass(id) {
+    toggleClass = (id) => {
         const { fullTasks } = this.state
         fullTasks.map(item => {
             if (item.id === id) {
@@ -155,22 +134,28 @@ class App extends React.Component {
     }
 
 
-    render() {
-        const { items } = this.state;
-        const { fullTasks } = this.state;
-        const activeItem = fullTasks.filter(item => item.active);
-        const itemComplete = fullTasks.filter(item => !item.active);
 
+
+    render() {
+        const { itemsFull } = this.state;
+        const { items } = this.state;
+        const activeItem = itemsFull.filter(item => item.active);
+        const itemComplete = itemsFull.filter(item => !item.active);
+
+        store.subscribe(() => {
+            const state = store.getState()
+          
+          })
         return (
             <div className="App" >
                 <Title />
                 <Input addTodo={this.addTodo} />
                 <ul>
-                    {items.map((elem) => {
+                    {items.map((elem, index) => {
                         return (
                             <Item
                                 elem={elem}
-                                key={elem.id}
+                                key={index}
                                 deleteItem={() => this.deleteItem(elem.id)}
                                 completeItem={() => this.completeItem(elem.id)}
                             />
@@ -178,17 +163,16 @@ class App extends React.Component {
                     })}
                 </ul>
 
-                {(this.state.fullTasks.length || this.state.items.length) ?
+                {(this.state.itemsFull.length > 0) ?
                     <Footer
                         items={items}
-                        fullTasks={this.state.fullTasks}
                         countAll={activeItem.length}
-                        showComplete={() => this.showComplete()}
+                        showComplete={this.showComplete}
                         countDone={itemComplete.length}
-                        deleteAll={() => this.deleteAll()}
-                        showActive={() => this.showActive()}
-                        deleteActive={() => this.deleteActive()}
-                        showAll={() => this.showAll()}
+                        deleteAll={this.deleteAll}
+                        showActive={this.showActive}
+                        deleteActive={this.deleteActive}
+                        showAll={this.showAll}
                     /> : ''
                 }
 
@@ -196,7 +180,6 @@ class App extends React.Component {
             </div>
         )
     }
-
 
 }
 
