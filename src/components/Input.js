@@ -1,5 +1,6 @@
 import React from "react";
 import { Provider, useSelector, useDispatch } from 'react-redux';
+import { store } from "..";
 //const count = useSelector(state => state.todos.text)
 
 
@@ -25,10 +26,7 @@ class Input extends React.Component {
 
     inputEnter = (e) => {
         if (e.key === 'Enter') {
-
             this.addTodo();
-
-
         }
     }
 
@@ -40,9 +38,12 @@ class Input extends React.Component {
             this.setState({
                 input: '',
             })
+
+            
+
         }
 
-
+        store.dispatch(this.addTodo())
     }
 
 

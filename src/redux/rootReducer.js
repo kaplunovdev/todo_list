@@ -3,7 +3,7 @@ import { ADD_TODOS } from './types'
 
 
 
-function addTodos(state = [], action) {
+function addTodos(state = initialState, action) {
   switch (action.type) {
     case ADD_TODOS:
       return {
@@ -11,12 +11,20 @@ function addTodos(state = [], action) {
         id: action.id,
         id: 0,
         active: true,
-        text: ''
+        text: 'Новая тудуха!!!!!'
 
       }
     default: return state
   }
 }
+
+const initialState = {
+  items: [],
+  fullItems: [],
+}
+
+
+
 
 export const rootReducer = combineReducers({
   add: addTodos
