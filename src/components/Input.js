@@ -43,7 +43,6 @@ class Input extends React.Component {
 
         }
 
-        store.dispatch(this.addTodo())
     }
 
 

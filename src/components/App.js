@@ -142,10 +142,7 @@ export class App extends React.Component {
         const activeItem = itemsFull.filter(item => item.active);
         const itemComplete = itemsFull.filter(item => !item.active);
 
-        store.subscribe(() => {
-            const state = store.getState()
-          
-          })
+
         return (
             <div className="App" >
                 <Title />
