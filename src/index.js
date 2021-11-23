@@ -1,22 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import {rootReducer} from './redux/rootReducer'
-
+import todos from './redux/rootReducer'
 import {createStore} from 'redux'
-
 import App from './components/App';
-//import { composeWithDevTools } from 'redux-devtools-extension'
 import './css/style.css';
 
-export const store = createStore(rootReducer)
+export const store = createStore(todos,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
   
-
-
-
-
-
-//store.dispatch({ type: 'INIT_APPLICATION' })
 
 ReactDOM.render(
   <Provider store={store}>

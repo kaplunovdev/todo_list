@@ -1,31 +1,53 @@
 import { combineReducers } from 'redux'
-import { ADD_TODOS } from './types'
+import { ADD_TODOS, TOGGLE_TODOS, REMOVE_TODOS } from './types'
 
+const initialState = []
 
+function todos(state = initialState, action) {
 
-function addTodos(state = initialState, action) {
+  //console.log('arrID',arr)
   switch (action.type) {
-    case ADD_TODOS:
-      return {
+    case "ADD_TODOS":
+      return [
         ...state,
-        id: action.id,
-        id: 0,
-        active: true,
-        text: 'Новая тудуха!!!!!'
+        {
+          id: action.id,
+          text: action.text,
+          isComplete: false
 
-      }
+        }
+      ]
+    case "REMOVE_TODOS":
+      return [
+        ...state.slice(0, action.payload),
+    ...state.slice(action.payload + 1)
+
+      ]
+    case 'TOGGLE_TODOS':
+      return state.map(todo =>
+        (todo.id === action.id)
+          ? { ...todo, isComplete: !todo.isComplete }
+          : todo
+      )
+     
     default: return state
   }
+
+
+
 }
 
-const initialState = {
-  items: [],
-  fullItems: [],
-}
+
+
+
+
+
 
 
 
 
 export const rootReducer = combineReducers({
-  add: addTodos
+  AllTodo: todos
 })
+
+export default todos;

@@ -2,8 +2,7 @@ import React from "react";
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import { store } from "..";
 //const count = useSelector(state => state.todos.text)
-
-
+import { addTodos } from '../redux/rootReducer'
 
 class Input extends React.Component {
 
@@ -14,54 +13,26 @@ class Input extends React.Component {
             input: ''
         };
 
-
     }
-
-    changeInput = (e) => {
-        this.setState({
-            input: e.target.value
-        })
-    }
-
-
-    inputEnter = (e) => {
-        if (e.key === 'Enter') {
-            this.addTodo();
-        }
-    }
-
-    addTodo = () => {
-        const { input } = this.state;
-
-        if (input) {
-            this.props.addTodo(input);
-            this.setState({
-                input: '',
-            })
-
-            
-
-        }
-
-    }
-
-
 
 
     render() {
+
         const { input } = this.state;
         return (
-            <input
-                className="input_main"
-                type="text"
-                placeholder="Что записать?"
-                autoFocus
-                onChange={this.changeInput}
-                value={input}
-                onKeyPress={this.inputEnter}
+            <div>
+                <input
+                    className="input_main"
+                    type="text"
+                    placeholder="Что записать?"
+                    autoFocus
+                    onChange={this.changeInput}
+                    onKeyPress={this.inputEnter}
+                    ref={(input) => { this.trackInput = input }}
+                />
+            </div>
 
 
-            />
         )
     }
 
