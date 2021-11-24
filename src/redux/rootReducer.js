@@ -25,27 +25,25 @@ function todos(state = initialState, action) {
         ...state, items: [...arr]
       }
     case "REMOVE_TODOS":
-      const currentId = action.payload
-      //console.log(currentId)
       return {
         ...state,
-         items: state.items.filter(elem=> elem.id !== currentId)
-        
+        items: state.items.filter(elem => elem.id !== action.payload)
+
       }
-        
-      
+    case 'TOGGLE_TODOS':
+      return {
+        ...state,
+        items: [...state.items.map(todo =>
+          todo.id === action.payload ? { ...todo, isComplete: !todo.isComplete } : todo
+        )]
 
-      
+      }
 
 
 
 
-    // case 'TOGGLE_TODOS':
-    //   return state.map(todo =>
-    //     (todo.id === action.id)
-    //       ? { ...todo, isComplete: !todo.isComplete }
-    //       : todo
-    //   )
+
+
 
     default: return state
   }

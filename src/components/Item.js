@@ -12,10 +12,10 @@ const Item = ({ elem, toggleDispatch, ...props }) => {
           //checked={props.cheked ? !props.cheked : false}
           className="checkbox"
           type="checkbox"
-          onChange={()=> props.completeItem(elem.id)}
+          onChange={props.toggleItem}
         />
         <span
-          className={(!props.cheked) ? 'text' :'complete text' }>{elem.text}
+          className={(props.cheked) ? 'complete text' :'text' }>{elem.text}
         </span>
       </div>
       <button onClick={props.removeItem}></button>

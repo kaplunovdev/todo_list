@@ -125,15 +125,15 @@ export class App extends React.Component {
   //   })
   // }
 
-  toggleClass = (id) => {
-    const { fullTasks } = this.state
-    fullTasks.map(item => {
-      if (item.id === id) {
-        item.active = !item.active
-      }
-      return item;
-    })
-  }
+  // toggleClass = (id) => {
+  //   const { fullTasks } = this.state
+  //   fullTasks.map(item => {
+  //     if (item.id === id) {
+  //       item.active = !item.active
+  //     }
+  //     return item;
+  //   })
+  // }
 
   inputEnter = (e) => {
     if (e.key === 'Enter') {
@@ -143,7 +143,6 @@ export class App extends React.Component {
 
   addItem = () => {
 
-    console.log('addTrack', this.trackInput.value);
     this.props.addDispatch(this.trackInput.value);
     this.trackInput.value = '';
   }
@@ -151,12 +150,12 @@ export class App extends React.Component {
   removeItem = (index) => {
 
     this.props.removeDispatch(index);
-    console.log('removeItem',index)
   }
+
   toggleItem = (index) => {
 
     this.props.toggleDispatch(index);
-    console.log()
+    console.log('777')
   }
 
 
@@ -165,7 +164,6 @@ export class App extends React.Component {
     //const activeItem = this.props.todoStore.items.filter(item => !item.isComplete);
     //const itemComplete = this.props.todoStore.items.filter(item => item.isComplete);
     console.log('todoStore', this.props.todoStore.items)
-
     return (
       <div className="App" >
         <Title />
@@ -186,8 +184,8 @@ export class App extends React.Component {
                 elem={elem}
                 key={index}
                 removeItem={() => this.removeItem(elem.id)}
-                completeItem={() => this.toggleItem(elem.id)}
-                cheked={elem.isComplete}
+                toggleItem={() => this.toggleItem(elem.id)}
+              //cheked={elem.isComplete}
               />
             )
           })}
@@ -226,10 +224,10 @@ export default connect(
         payload: todo,
       })
     },
-    toggleDispatch: (todo) => {
+    toggleDispatch: (id) => {
       dispatch({
         type: 'TOGGLE_TODOS',
-        id: todo
+        payload:id
       })
     },
     removeDispatch: (index) => {
