@@ -162,9 +162,9 @@ export class App extends React.Component {
 
 
   render() {
-    const activeItem = this.props.todoStore.filter(item => !item.isComplete);
-    const itemComplete = this.props.todoStore.filter(item => item.isComplete);
-    console.log('todoStore', this.props.todoStore)
+    //const activeItem = this.props.todoStore.items.filter(item => !item.isComplete);
+    //const itemComplete = this.props.todoStore.items.filter(item => item.isComplete);
+    console.log('todoStore', this.props.todoStore.items)
 
     return (
       <div className="App" >
@@ -180,7 +180,7 @@ export class App extends React.Component {
         />
 
         <ul>
-          {this.props.todoStore.map((elem, index) => {
+          {this.props.todoStore.items.map((elem, index) => {
             return (
               <Item
                 elem={elem}
@@ -193,12 +193,12 @@ export class App extends React.Component {
           })}
         </ul>
 
-        {(this.props.todoStore.length > 0) ?
+        {(this.props.todoStore.items.length > 0) ?
           <Footer
             //items={items}
-            countAll={activeItem.length}
+            //countAll={activeItem.length}
             showComplete={this.showComplete}
-            countDone={itemComplete.length}
+            //countDone={itemComplete.length}
             deleteAll={this.deleteAll}
             showActive={this.showActive}
             deleteActive={this.deleteActive}
@@ -211,7 +211,7 @@ export class App extends React.Component {
 
 }
 
-let nextId = 0
+
 export default connect(
   state => ({
     todoStore: state
@@ -223,9 +223,7 @@ export default connect(
 
       dispatch({
         type: 'ADD_TODOS',
-        id: nextId++,
-        text: todo,
-        isComplete: false
+        payload: todo,
       })
     },
     toggleDispatch: (todo) => {
