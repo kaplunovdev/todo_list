@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/style.css';
 
-const Item = ({ elem, toggleDispatch, ...props }) => {
+const Item = ({ elem, ...props }) => {
 
 
   return (
@@ -9,13 +9,13 @@ const Item = ({ elem, toggleDispatch, ...props }) => {
     <li className="item">
       <div className="item__left">
         <input
-          //checked={props.cheked ? !props.cheked : false}
+          checked={!props.cheked ? false : true}
           className="checkbox"
           type="checkbox"
           onChange={props.toggleItem}
         />
         <span
-          className={(props.cheked) ? 'complete text' :'text' }>{elem.text}
+          className={!props.cheked ?  'text':'complete text' }>{elem.text}
         </span>
       </div>
       <button onClick={props.removeItem}></button>

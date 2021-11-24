@@ -166,6 +166,10 @@ button.footer__active {
   text-decoration: line-through;
 }
 
+.remove{
+  color:tomato;
+}
+
 .App {
   max-width: 600px;
   display: flex;

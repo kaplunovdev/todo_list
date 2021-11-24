@@ -142,9 +142,11 @@ export class App extends React.Component {
   }
 
   addItem = () => {
+    if (this.trackInput.value !== '') {
+      this.props.addDispatch(this.trackInput.value);
+      this.trackInput.value = '';
+    }
 
-    this.props.addDispatch(this.trackInput.value);
-    this.trackInput.value = '';
   }
 
   removeItem = (index) => {
@@ -155,15 +157,37 @@ export class App extends React.Component {
   toggleItem = (index) => {
 
     this.props.toggleDispatch(index);
-    console.log('777')
+
   }
 
+  showActive = (id) => {
 
+    this.props.activeDispatch(id);
+  }
 
+  showAll = (id) => {
+
+    this.props.showAllDispatch(id);
+  }
+
+  showComplete = (id) => {
+
+    this.props.showCompleteDispatch(id);
+  }
+  removeComplete = (id) => {
+
+    this.props.removeCompleteDispatch(id);
+  }
+
+  removeActive = (id) => {
+
+    this.props.removeActiveDispatch(id);
+  }
   render() {
-    //const activeItem = this.props.todoStore.items.filter(item => !item.isComplete);
-    //const itemComplete = this.props.todoStore.items.filter(item => item.isComplete);
-    console.log('todoStore', this.props.todoStore.items)
+    const activeItem = this.props.todoStore.items.filter(item => item.isComplete === false);
+    const itemComplete = this.props.todoStore.items.filter(item => item.isComplete === true);
+    console.log('items', this.props.todoStore.items)
+    console.log('filteredItems', this.props.todoStore.filteredItems)
     return (
       <div className="App" >
         <Title />
@@ -185,7 +209,7 @@ export class App extends React.Component {
                 key={index}
                 removeItem={() => this.removeItem(elem.id)}
                 toggleItem={() => this.toggleItem(elem.id)}
-              //cheked={elem.isComplete}
+                cheked={elem.isComplete}
               />
             )
           })}
@@ -193,14 +217,15 @@ export class App extends React.Component {
 
         {(this.props.todoStore.items.length > 0) ?
           <Footer
-            //items={items}
-            //countAll={activeItem.length}
+            countAll={this.props.todoStore.items.length}
             showComplete={this.showComplete}
-            //countDone={itemComplete.length}
-            deleteAll={this.deleteAll}
+            itemComplete={itemComplete.length}
+            removeComplete={this.removeComplete}
             showActive={this.showActive}
-            deleteActive={this.deleteActive}
+            removeActive={this.removeActive}
             showAll={this.showAll}
+            activeCount={activeItem.length}
+
           /> : ''
         }
       </div>
@@ -227,7 +252,7 @@ export default connect(
     toggleDispatch: (id) => {
       dispatch({
         type: 'TOGGLE_TODOS',
-        payload:id
+        payload: id
       })
     },
     removeDispatch: (index) => {
@@ -235,7 +260,37 @@ export default connect(
         type: 'REMOVE_TODOS',
         payload: index
       })
-    }
+    },
+    activeDispatch: (id) => {
+      dispatch({
+        type: 'ACTIVE_TODOS',
+        payload: id
+      })
+    },
+    showAllDispatch: (id) => {
+      dispatch({
+        type: 'ALL_TODOS',
+        payload: id
+      })
+    },
+    showCompleteDispatch: (id) => {
+      dispatch({
+        type: 'COMPLETE_TODOS',
+        payload: id
+      })
+    },
+    removeCompleteDispatch: (id) => {
+      dispatch({
+        type: 'REMOVE_COMPLETE_TODOS',
+        payload: id
+      })
+    },
+    removeActiveDispatch: (id) => {
+      dispatch({
+        type: 'REMOVE_ACTIVE_TODOS',
+        payload: id
+      })
+    },
   })
 )(App);
 
