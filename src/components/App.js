@@ -151,7 +151,7 @@ export class App extends React.Component {
   removeItem = (index) => {
 
     this.props.removeDispatch(index);
-    console.log()
+    console.log('removeItem',index)
   }
   toggleItem = (index) => {
 
@@ -185,7 +185,7 @@ export class App extends React.Component {
               <Item
                 elem={elem}
                 key={index}
-                removeItem={() => this.removeItem(index)}
+                removeItem={() => this.removeItem(elem.id)}
                 completeItem={() => this.toggleItem(elem.id)}
                 cheked={elem.isComplete}
               />

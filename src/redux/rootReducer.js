@@ -24,16 +24,22 @@ function todos(state = initialState, action) {
       return {
         ...state, items: [...arr]
       }
+    case "REMOVE_TODOS":
+      const currentId = action.payload
+      //console.log(currentId)
+      return {
+        ...state,
+         items: state.items.filter(elem=> elem.id !== currentId)
+        
+      }
+        
+      
+
+      
 
 
 
 
-    // case "REMOVE_TODOS":
-    //   return [
-    //     ...state.slice(0, action.payload),
-    //     ...state.slice(action.payload + 1)
-
-    //   ]
     // case 'TOGGLE_TODOS':
     //   return state.map(todo =>
     //     (todo.id === action.id)
@@ -43,8 +49,6 @@ function todos(state = initialState, action) {
 
     default: return state
   }
-
-
 
 }
 
