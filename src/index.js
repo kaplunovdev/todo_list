@@ -10,7 +10,7 @@ import todos from './store/reducers/todos';
 
 
 export const store = createStore(todos,
-  applyMiddleware(thunkMiddleware),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
  
   )
   

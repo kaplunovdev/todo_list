@@ -2,13 +2,12 @@
 const initialState = {
   items: [],
   filteredItems: [],
-  nextId: 0
 }
 
 function todos(state = initialState, action) {
 
   switch (action.type) {
-  
+
     case "ADD_TODOS":
       const idArr = state.items.map(elem => elem.id)
       const idElem = state.items.length === 0 ? 0 : Math.max.apply(null, idArr) + 1
@@ -32,18 +31,20 @@ function todos(state = initialState, action) {
     case 'TOGGLE_TODOS':
       return {
         ...state,
-        filteredItems: [...state.items],
         items: [...state.items.map(todo =>
           todo.id === action.payload ? { ...todo, isComplete: !todo.isComplete } : todo
-        )]
-
+        )],
+        filteredItems: [...state.items.map(todo =>
+          todo.id === action.payload ? { ...todo, isComplete: !todo.isComplete } : todo
+        )],
       }
     case 'ACTIVE_TODOS':
-      const arrFilter = [...state.items]
+      const arrFilter = [...state.filteredItems]
       const updateArr = arrFilter.filter(elem => elem.isComplete === false)
+
       return {
         ...state,
-        items: updateArr,
+        items: [...updateArr],
         filteredItems: [...arrFilter]
       }
     case 'COMPLETE_TODOS':

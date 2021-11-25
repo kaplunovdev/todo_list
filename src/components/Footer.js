@@ -10,7 +10,7 @@ function Footer(props) {
     <div className="footer">
       <div>{props.activeCount}</div>
       <div className="footer__center">
-        <button onClick={props.showAll} >Все</button>
+        <button onClick={props.countAll > 0 ? props.showAll : false}  >Все</button>
         <button
           onClick={props.showActive}
           disabled={false}>Активные</button>
