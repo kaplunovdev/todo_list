@@ -27,8 +27,6 @@ export class App extends React.Component {
   render() {
     const activeItem = this.props.todoStore.items.filter(item => item.isComplete === false);
     const itemComplete = this.props.todoStore.items.filter(item => item.isComplete === true);
-    console.log('items', this.props.todoStore.items)
-    console.log('filteredItems', this.props.todoStore.filteredItems)
 
     return (
       <div className="App" >
