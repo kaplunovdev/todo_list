@@ -4,20 +4,21 @@ import '../css/style.css';
 const Item = ({ elem, ...props }) => {
 
 
-
-
   return (
+
     <li className="item">
       <div className="item__left">
         <input
-          checked={!elem.active}
+          checked={!props.cheked ? false : true}
           className="checkbox"
           type="checkbox"
-          onChange={() => props.completeItem(elem.id)} />
+          onChange={props.toggleItem}
+        />
         <span
-          className={(!elem.active) ? 'complete text' : 'text'}>{elem.text}</span>
+          className={!props.cheked ?  'text':'complete text' }>{elem.text}
+        </span>
       </div>
-      <button onClick={() => props.deleteItem(elem.id)}></button>
+      <button onClick={props.removeItem}></button>
     </li>
   )
 
