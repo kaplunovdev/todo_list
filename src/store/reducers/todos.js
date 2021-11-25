@@ -1,7 +1,3 @@
-import { combineReducers } from 'redux'
-import { ADD_TODOS, TOGGLE_TODOS, REMOVE_TODOS } from './types'
-
-
 
 const initialState = {
   items: [],
@@ -11,7 +7,6 @@ const initialState = {
 
 function todos(state = initialState, action) {
 
-  //console.log('arrID',arr)
   switch (action.type) {
   
     case "ADD_TODOS":
@@ -79,29 +74,11 @@ function todos(state = initialState, action) {
         items: [...state.filteredItems],
       }
 
-
-
-
-
-
-
     default: return state
   }
 
 }
 
 
-
-
-
-
-
-
-
-
-
-export const rootReducer = combineReducers({
-  AllTodo: todos
-})
 
 export default todos;
