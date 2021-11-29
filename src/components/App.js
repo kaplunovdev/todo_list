@@ -74,10 +74,10 @@ export class App extends React.Component {
 
 }
 
-export default connect(
-  state => ({
-    todoStore: state
-  }))(App);
+export default connect(  state => ({ todoStore: state.todos }))(App);
+
+   
+ 
 
 
 
