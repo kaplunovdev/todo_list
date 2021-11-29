@@ -9,10 +9,7 @@ import rootReducers from './store/reducers/index';
 import todos from './store/reducers/todos';
 
 
-export const store = createStore(todos,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
- 
-  )
+export const store = createStore(rootReducers, applyMiddleware(thunkMiddleware))
   
 
 ReactDOM.render(
